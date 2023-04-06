@@ -1,5 +1,5 @@
 # hurl.nvim
-Neovim port syntax highlighting for [Hurl](https://github.com/Orange-OpenSource/hurl)
+Lua port of syntax highlighting for [Hurl](https://github.com/Orange-OpenSource/hurl)
 
 ## Installation
 
@@ -13,19 +13,8 @@ use 'samueljoli/hurl.nvim'
 Plug 'samueljoli/hurl.nvim'
 ```
 
-## Screenshots
->[cyberpunk](https://github.com/samueljoli/cyberpunk.nvim)
-<img width="584" alt="Screen Shot 2023-04-06 at 6 57 08 PM" src="https://user-images.githubusercontent.com/12755671/230509374-ae1f50cc-ef8f-40c0-9274-b0cfb2c143e8.png">
-
->[gruvbox](https://github.com/ellisonleao/gruvbox.nvim)
-<img width="600" alt="Screen Shot 2023-04-06 at 6 57 29 PM" src="https://user-images.githubusercontent.com/12755671/230509392-df4c0881-52d0-446c-a7d8-bc98b6572524.png">
-
->[noctic](https://github.com/kartikp10/noctis.nvim)
-<img width="587" alt="Screen Shot 2023-04-06 at 6 58 26 PM" src="https://user-images.githubusercontent.com/12755671/230509403-2a1a95ca-4bd7-4f93-90dc-ee237b899276.png">
-
-
 ## Configuration
-This plugin allows you to customize several syntax match rules as originally defined by `hurl`:
+This plugin allows you to customize several syntax match rules as originally defined by `hurl`. If no configuration is provided, the plugin will use your colorscheme's default highlight groups.
 
 **Example:**
 ```lua
@@ -33,114 +22,117 @@ This plugin allows you to customize several syntax match rules as originally def
     'samueljoli/hurl.nvim',
     config = function()
       require('hurl').setup({
-        method    = "#fffc58",
-        url       = "#fffc58",
-        query     = "#d57bff",
-        operators = "#c592ff",
+        comment          = "#ebc021", -- default => Comment
+        method           = "#fffc58", -- default => Statement
+        url              = "#fffc58", -- default => Underlined
+        version          = "#032ea7", -- default => Statement
+        status           = "#032ea7", -- default => Number
+        section          = "#032ea7", -- default => Statement
+        operators        = "#c592ff", -- default => Operator
+        string           = "#032ea7", -- default => String
+        query            = "#d57bff", -- default => Identifier
+        filter           = "#032ea7", -- default => Operator
+        predicate        = "#032ea7", -- default => Operator
+        template         = "#032ea7", -- default => Identifier
+        escapeQuote      = "#032ea7", -- default => SpecialChar
+        escapeNumberSign = "#032ea7", -- default => SpecialChar
       })
     end
   }
 ```
 
-**List of supported syntax match rules:**
-+ `comment`
-+ `method`
-  + `GET`
-  + `POST`
-  + `PUT`
-  + `PATCH`
-  + `DELETE`
-  + `CONNECT`
-  + `OPTIONS`
-  + `TRACE`
-  + `LINK`
-  + `UNLINK`
-  + `PURGE`
-  + `LOCK`
-  + `UNLOCK`
-  + `PROPFIND`
-  + `VIEW`
-+ `url`
-+ `version`
-  + `HTTP`
-  + `HTTP/1.0`
-  + `HTTP/1.1`
-  + `HTTP/2`
-  + `HTTP/*`
-+ `status`
-  + `[0-9]`
-+ `section`
-  + `[Asserts]`
-  + `[Captures]`
-  + `[Cookies]`
-  + `[FormParams]`
-  + `[MultipartFormData]`
-  + `[Options]`
-  + `[QueryStringParams]`
-+ `operators`
-  + `==`
-  + `!=`
-  + `>`
-  + `>=`
-  + `<`
-  + `<=`
-+ `string`
-+ `query`
-  + `status`
-  + `url`
-  + `header`
-  + `cookie`
-  + `body`
-  + `jsonpath`
-  + `xpath`
-  + `regex`
-  + `variable`
-  + `duration`
-  + `sha256`
-  + `md5`
-  + `bytes`
-+ `filter`
-  + `count`
-  + `regex`
-  + `urlEncode`
-  + `urlDecode`
-  + `htmlEscape`
-  + `htmlUnescape`
-+ `predicate`
-  + `startsWith`
-  + `endsWith`
-  + `matches`
-  + `exists`
-  + `includes`
-  + `isInteger`
-  + `isFloat`
-  + `isBoolean`
-  + `isString`
-  + `isCollection`
-+ `template`
-  + `{{ }}`
-+ `escapeQuote`
-+ `escapeNumber`
+<div>
+  <details>
+    <summary><strong>List of supported syntax match rules:</strong></summary>
+    <ul>
+      <li><code>comment</code></li>
+      <li><code>method</code>
+        <ul>
+          <li><code>GET</code></li>
+          <li><code>POST</code></li>
+          <li><code>PUT</code></li>
+          <li><code>PATCH</code></li>
+          <li><code>DELETE</code></li>
+          <li><code>CONNECT</code></li>
+          <li><code>OPTIONS</code></li>
+          <li><code>TRACE</code></li>
+          <li><code>LINK</code></li>
+          <li><code>UNLINK</code></li>
+          <li><code>PURGE</code></li>
+          <li><code>LOCK</code></li>
+          <li><code>UNLOCK</code></li>
+          <li><code>PROPFIND</code></li>
+          <li><code>VIEW</code></li>
+        </ul>
+      </li>
+      <li><code>url</code></li>
+      <li><code>version</code>
+        <ul>
+          <li><code>HTTP</code></li>
+          <li><code>HTTP/1.0</code></li>
+          <li><code>HTTP/1.1</code></li>
+          <li><code>HTTP/2</code></li>
+          <li><code>HTTP/*</code></li>
+        </ul>
+      </li>
+      <li><code>status</code>
+        <ul>
+          <li><code>[0-9]</code></li>
+        </ul>
+      </li>
+      <li><code>section</code>
+        <ul>
+          <li><code>[Asserts]</code></li>
+          <li><code>[Captures]</code></li>
+          <li><code>[Cookies]</code></li>
+          <li><code>[FormParams]</code></li>
+          <li><code>[MultipartFormData]</code></li>
+          <li><code>[Options]</code></li>
+          <li><code>[QueryStringParams]</code></li>
+        </ul>
+      </li>
+      <li><code>operators</code>
+        <ul>
+          <li><code>==</code></li>
+          <li><code>!=</code></li>
+          <li><code>&gt;</code></li>
+          <li><code>&gt;=</code></li>
+          <li><code>&lt;</code></li>
+          <li><code>&lt;=</code></li>
+        </ul>
+      </li>
+      <li><code>string</code></li>
+      <li><code>query</code>
+        <ul>
+          <li><code>status</code></li>
+          <li><code>url</code></li>
+          <li><code>header</code></li>
+          <li><code>cookie</code></li>
+          <li><code>body</code></li>
+          <li><code>jsonpath</code></li>
+          <li><code>xpath</code></li>
+          <li><code>regex</code></li>
+          <li><code>variable</code></li>
+          <li><code>duration</code></li>
+          <li><code>sha256</code></li>
+          <li><code>md5</code></li>
+          <li><code>bytes</code></li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</div>
 
-> If left unconfigured it will fallback to your colorscheme defined highlight groups. Syntax match rule to default highlight group mapping:
+🚨 If an invalid hex code is passed, the plugin will use the fallback syntax match rule and log the key-value pair to the console. To view the log, check Vim's `:messages`.
 
-```vim
-highlight def link comment Comment
-highlight def link method Statement
-highlight def link url Underlined
-highlight def link version Statement
-highlight def link status Number
-highlight def link section Statement
-highlight def link operators Operator
-highlight def link string String
-highlight def link query Identifier
-highlight def link filter Operator
-highlight def link predicate Operator
-highlight def link template Identifier
-highlight def link escapeQuote SpecialChar
-highlight def link escapeNumberSign SpecialChar
-```
+## Examples
 
-> 🚨 If passed an invalid hex code, this will utilize the fallback for that provided syntax match rule and print to console helpful information. Refer to vim's `:messages` to view log.
+>[cyberpunk](https://github.com/samueljoli/cyberpunk.nvim)
+<img width="584" alt="Screen Shot 2023-04-06 at 6 57 08 PM" src="https://user-images.githubusercontent.com/12755671/230509374-ae1f50cc-ef8f-40c0-9274-b0cfb2c143e8.png">
 
+>[gruvbox](https://github.com/ellisonleao/gruvbox.nvim)
+<img width="600" alt="Screen Shot 2023-04-06 at 6 57 29 PM" src="https://user-images.githubusercontent.com/12755671/230509392-df4c0881-52d0-446c-a7d8-bc98b6572524.png">
+
+>[noctis](https://github.com/kartikp10/noctis.nvim)
+<img width="587" alt="Screen Shot 2023-04-06 at 6 58 26 PM" src="https://user-images.githubusercontent.com/12755671/230509403-2a1a95ca-4bd7-4f93-90dc-ee237b899276.png">
 
