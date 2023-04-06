@@ -8,7 +8,8 @@ function M.setup(opts)
 
   opts = opts or {}
 
-  local settings = vim.tbl_deep_extend("force", {}, utils.default_options, opts)
+  -- validate and merge options. will throw if passed invalid hex code
+  local settings = utils.merge(opts)
 
   -- enable syntax
   api.nvim_command("syntax enable")
