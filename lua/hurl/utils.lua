@@ -25,14 +25,6 @@ function utils.validate_options(opts)
   end
 end
 
-local function validate_hex_code(value)
-  local is_valid_hex = string.match(value, "^#(%x%x%x%x%x%x)$") ~= nil
-
-  if not is_valid_hex then
-    error("plugin options contains unexpected hexcode: " .. value)
-  end
-end
-
 local function upcase(word)
   return string.upper(string.sub(word, 1, 1)) .. string.sub(word, 2)
 end
@@ -47,49 +39,53 @@ end
 
 function utils.merge(opts)
   for key, value in pairs(opts) do
-    validate_hex_code(value)
+    local is_valid_hex = string.match(value, "^#(%x%x%x%x%x%x)$") ~= nil
 
-    if key == "comment" then
-      opts[key] = make_custom_hightlight(key, value)
-    end
-    if key == "method" then
-      opts[key] = make_custom_hightlight(key, value)
-    end
-    if key == "url" then
-      opts[key] = make_custom_hightlight(key, value)
-    end
-    if key == "version" then
-      opts[key] = make_custom_hightlight(key, value)
-    end
-    if key == "status" then
-      opts[key] = make_custom_hightlight(key, value)
-    end
-    if key == "section" then
-      opts[key] = make_custom_hightlight(key, value)
-    end
-    if key == "operators" then
-      opts[key] = make_custom_hightlight(key, value)
-    end
-    if key == "string" then
-      opts[key] = make_custom_hightlight(key, value)
-    end
-    if key == "query" then
-      opts[key] = make_custom_hightlight(key, value)
-    end
-    if key == "filter" then
-      opts[key] = make_custom_hightlight(key, value)
-    end
-    if key == "predicate" then
-      opts[key] = make_custom_hightlight(key, value)
-    end
-    if key == "template" then
-      opts[key] = make_custom_hightlight(key, value)
-    end
-    if key == "escapeQuote" then
-      opts[key] = make_custom_hightlight(key, value)
-    end
-    if key == "escapeNumberSign" then
-      opts[key] = make_custom_hightlight(key, value)
+    if is_valid_hex then
+      if key == "comment" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+      if key == "method" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+      if key == "url" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+      if key == "version" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+      if key == "status" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+      if key == "section" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+      if key == "operators" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+      if key == "string" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+      if key == "query" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+      if key == "filter" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+      if key == "predicate" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+      if key == "template" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+      if key == "escapeQuote" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+      if key == "escapeNumberSign" then
+        opts[key] = make_custom_hightlight(key, value)
+      end
+    else
+      print(string.format("plugin option: %s, contains invalid hex code: %s", key, value))
     end
   end
 
