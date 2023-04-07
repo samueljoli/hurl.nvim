@@ -3,6 +3,7 @@ local utils = require('hurl.utils')
 local hurl = {}
 
 function hurl.setup(opts)
+  opts = opts or {}
   -- Set the filetype for Hurl files to "hurl"
   vim.cmd('autocmd BufNewFile,BufRead *.hurl set filetype=hurl')
 
